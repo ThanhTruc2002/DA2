@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Car</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./clock.css">
+    <link rel="stylesheet" href="./base.css">
+    <link href="./font/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet">
+    <link href="./uicons-solid-straight/css/uicons-solid-straight.css" rel="stylesheet">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.cdnfonts.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap&subset=vietnamese" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/ds-digital" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="row">            
+            <div class="col">
+                <div class="logo_hcmute"></div>
+            </div>
+            <div class="col">
+                <p>Nguyen Hoang Thanh Truc 20161069</p>
+            </div>
+            <div class="col">      
+                <p>Le Van Tien 20161378</p>
+            </div>
+            <div class="col">
+                <div class="logo_feee"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <div class="col gear">
+            <span id="rpmvalue"></span>
+            <div class="gear--needle">
+            </div>
+        </div>
+        
+        <div class="col speedometer">
+            <!-- <div class="turn-signal">
+                <i class="fa-solid fa-left-long"></i>
+                <i class="fa-solid fa-right-long"></i>
+            </div> -->
+            <span id="speedvalue"></span>
+            <div class="speedometer--needle"></div>
+            <div class="speed--fill"></div>
+            <div class="time">
+                <span id="hh">00</span>
+                <span>:</span>
+                <span id="mm">00</span>
+                <span>:</span>
+                <span id="sc">00</span>
+            </div>
+            <div class="text--speed">
+                <span class="km">0</span>
+                <span class="unit">km/h</span>
+            </div>
+        </div> 
+    
+        <div class="col temp-fuel">
+            <div class="icon-signal">
+                <i class="fi fi-ss-oil-temp"></i>
+                <i class="fa-solid fa-gas-pump"></i>
+            </div>
+            <span id="tempvalue"></span>           
+            <div class="temp--needle"></div>
+            <span id="fuelvalue"></span>
+            <div class="fuel--needle"></div>
+            <div class="temp-fuel--fill"></div>
+        </div> 
+    </div>
+
+    <div id="toast">        
+        <!-- Warning -->
+        <!-- <div class="toast toast--warning">
+            <div class="toast__icon">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">Warning</h3>
+                <p class="toast__msg">You drive too fast</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+        </div> -->
+
+        <!-- Error -->
+        
+    </div>
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDCUCijPObnQXplhjpbWlTNlSIMeBFxuhY",
+            authDomain: "doan2-8ec38.firebaseapp.com",
+            databaseURL: "https://doan2-8ec38-default-rtdb.firebaseio.com",
+            projectId: "doan2-8ec38",
+            storageBucket: "doan2-8ec38.appspot.com",
+            messagingSenderId: "1030383363539",
+            appId: "1:1030383363539:web:26363dc9290e216c84bb26",
+            measurementId: "G-PX31LQT4TE"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script type="module" src="function.js"></script>
+
+</body>
