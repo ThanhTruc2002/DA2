@@ -17,6 +17,7 @@ const rpmElement = document.querySelector(".gear");
 const speedElement = document.querySelector(".speedometer");
 const tempElement = document.querySelector(".temp-fuel");
 const fuelElement = document.querySelector(".temp-fuel");      
+const turnElement = document.querySelector(".turn-signal");      
 
 var Rpm = document.getElementById('rpmvalue');
 var dbRefrpm = firebase.database().ref('Rpm');
@@ -26,11 +27,13 @@ var Temp = document.getElementById('tempvalue');
 var dbReftemp = firebase.database().ref('Temp');
 var Fuel = document.getElementById('fuelvalue');
 var dbReffuel = firebase.database().ref('Fuel');
+var Turn = document.getElementById('turnvalue');
+var dbRefturn = firebase.database().ref('Turn');
 
 dbRefrpm.on('value', snap => {
     console.log("Rpm: " + snap.val());
     Rpm.innerHTML = snap.val();
-    setRpmValue(rpmElement, snap.val());
+    setRpmValue(rpmElement, snap.val()/1000);
 });  
 
 dbRefspeed.on('value', snap => {
@@ -51,6 +54,12 @@ dbReffuel.on('value', snap => {
     setFuelValue(fuelElement, snap.val()/100);
 });
 
+dbRefturn.on('value', snap => {
+    console.log("Turn: " + snap.val());
+    Turn.innerHTML = snap.val();
+    setTurn(turnElement, snap.val());
+});
+
 function setRpmValue(gear, valuerpm) {
     if (valuerpm > 8) {
         return;
@@ -64,15 +73,6 @@ function setSpeedValue(speed, valuespeed) {
     }
     speed.querySelector(".speedometer--needle").style.transform = `rotate(${(valuespeed - 160)}deg)`;
     if (valuespeed >= 150 && valuespeed <=300) {
-        // setInterval(()=>{
-        //     const element = document.getElementsByClassName("text--speed")[0];
-        //     const currentColor = element.style.color;
-        //     if (currentColor === "red") {
-        //         element.style.color = "white";
-        //     } else {
-        //         element.style.color = "red";
-        //     }
-        // },500) 
         document.getElementsByClassName("text--speed")[0].style.color = "red";
         showWarningSpeedToast ();
     }
@@ -89,22 +89,11 @@ function setTempValue(temp, valuetemp) {
     else {
         temp.querySelector(".temp--needle").style.transform = `rotate(${(valuetemp - 2)*50 - 15}deg)`;
         if (valuetemp >= 0.8 && valuetemp <=1) {
-            intervalId = setInterval(()=>{
-                const element = document.querySelector(".icon-signal .fi");
-                const currentColor = element.style.color;
-                if (currentColor === "red") {
-                    element.style.color = "white";
-                } else {
-                    element.style.color = "red";
-                }
-            },500);
+            document.querySelector(".icon-signal .fi").style.color = "red";
             showWarningTempToast ();
-            console.log('toan',intervalId);
         }
         else{
-            clearInterval(intervalId);
             document.querySelector(".icon-signal .fi").style.color = "white";
-            console.log('toan',intervalId);
         } 
     }
     
@@ -118,20 +107,38 @@ function setFuelValue(fuel, valuefuel) {
     fuel.querySelector(".fuel--needle").style.transform = `rotate(${(2 - valuefuel)*50 + 15}deg)`;
    
     if (valuefuel >= 0 && valuefuel <=0.2) {  
-        intervalId = setInterval(()=>{
-            const element = document.querySelector(".icon-signal .fa-solid");
-            const currentColor = element.style.color;
-            if (currentColor === "red") {
-                element.style.color = "white";
-            } else {
-                element.style.color = "red";
-            }
-        },1000);     
+        document.querySelector(".icon-signal .fa-solid").style.color = "red";
         showWaringFuelToast ();
     }
     else{
-        clearInterval(intervalId);
         document.querySelector(".icon-signal .fa-solid").style.color = "white";
+    }
+} 
+
+function setTurn(turn, valueturn) {
+    if (valueturn < 0 || valueturn > 3) {
+        return;
+    }
+    switch(valueturn){
+        case 1: {
+            turn.querySelector(".turn-signal .fa-left-long").style.color = "green";
+            turn.querySelector(".turn-signal .fa-right-long").style.color = "white";
+            break;
+        }
+        case 2: {
+            turn.querySelector(".turn-signal .fa-left-long").style.color = "white";
+            turn.querySelector(".turn-signal .fa-right-long").style.color = "green";
+            break;
+        }
+        case 3: {
+            turn.querySelector(".turn-signal .fa-left-long").style.color = "green";
+            turn.querySelector(".turn-signal .fa-right-long").style.color = "green";
+            break;
+        }
+        default: {            
+            turn.querySelector(".turn-signal .fa-left-long").style.color = "white";
+            turn.querySelector(".turn-signal .fa-right-long").style.color = "white";
+        }
     }
 } 
 

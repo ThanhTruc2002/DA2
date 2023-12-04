@@ -1,8 +1,8 @@
 body{
     background-color: #666666;
-    /* box-shadow: 30px 30px 30px -10px rgba(0,0,0,0.15),
+    box-shadow: 30px 30px 30px -10px rgba(0,0,0,0.15),
     inset -1px -1px 15px rgba(0,0,0,0.8 ),
-    -15px -15px 35px rgba(255,255,255,0); */
+    -15px -15px 35px rgba(255,255,255,0);
     /* display: grid;
     grid-template-rows: auto auto;
     gap: 2.1rem; */
@@ -129,8 +129,11 @@ header{
     bottom: 90%;
     display: flex;
     justify-content: space-between;
-    color: white;
     font-size: 4.5rem;
+}
+
+.fa-left-long, .fa-right-long{
+    color: white;
 }
 
 .speedometer .speedometer--needle{
