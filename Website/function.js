@@ -33,7 +33,7 @@ var dbRefturn = firebase.database().ref('Turn');
 dbRefrpm.on('value', snap => {
     console.log("Rpm: " + snap.val());
     Rpm.innerHTML = snap.val();
-    setRpmValue(rpmElement, snap.val()/1000);
+    setRpmValue(rpmElement, snap.val());
 });  
 
 dbRefspeed.on('value', snap => {
@@ -45,7 +45,7 @@ dbRefspeed.on('value', snap => {
 dbReftemp.on('value', snap => {
     console.log("Temp: " + snap.val());
     Temp.innerHTML = snap.val();
-    setTempValue(tempElement, snap.val()/100);
+    setTempValue(tempElement, snap.val()/150);
 });  
 
 dbReffuel.on('value', snap => {
@@ -65,6 +65,12 @@ function setRpmValue(gear, valuerpm) {
         return;
     }
     gear.querySelector(".gear--needle").style.transform = `rotate(${(valuerpm - 6)*36}deg)`;
+    // if (valuerpm >= 7 && valuerpm <=8) {
+    //     document.getElementsByClassName(".gear--needle")[0].style.background = "red";
+    // }
+    // else {
+    //     document.getElementsByClassName(".gear--needle")[0].style.background = "white";
+    // }
 }                  
 
 function setSpeedValue(speed, valuespeed) {
@@ -109,6 +115,9 @@ function setFuelValue(fuel, valuefuel) {
     if (valuefuel >= 0 && valuefuel <=0.2) {  
         document.querySelector(".icon-signal .fa-solid").style.color = "red";
         showWaringFuelToast ();
+    }
+    else if (valuefuel >= 0.21 && valuefuel <=0.35) {  
+        document.querySelector(".icon-signal .fa-solid").style.color = "yellow";
     }
     else{
         document.querySelector(".icon-signal .fa-solid").style.color = "white";
